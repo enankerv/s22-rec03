@@ -30,12 +30,28 @@ test("test peek: queue with 2 element should peek the last one", () => {
     expect(queue.peek()).toEqual(3)
 })
 
+test("test clear: makes sure that the queue is cleared", () => {
+    const queue = createQueue()
+    queue.enqueue(2)
+    queue.enqueue(3)
+    queue.clear()
+    expect(createQueue().isEmpty()).toBeTruthy()
+})
+
 let param = [5, 10, 1000000]
 // parameterized test, apply to each value of the parameter
 test.each(param)("test enqueue: enqueued number %d is correct", (nr) => {
     const queue = createQueue()
     queue.enqueue(nr)
     expect(queue.peek()).toBe(nr)
+})
+
+test.each(param)("test dequeue: enqueued number %d is correct", (nr) => {
+    const queue = createQueue()
+    queue.enqueue(nr)
+    expect(queue.peek()).toBe(nr)
+    queue.dequeue()
+    expect(queue.size()).toBe(0)
 })
 
 // can nest tests with shared descriptions for better readability
